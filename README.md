@@ -194,7 +194,6 @@ A few functions you may find useful for implementing `case`:
 The grammar your new interpreter and compiler should support is as follows:
 ```diff
 <expr> ::= <num>
-         | <char>
          | <id>
          | true
          | false
