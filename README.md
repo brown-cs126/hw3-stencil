@@ -27,17 +27,17 @@ would fit not in a 64-bit register but an 128-bit one. One can simulate an
 the "outputs" of `imul` in `rdx` and `rax`. Conversely, the dividend for `idiv`
 is 128-bit and stored in `rdx` and `rax`.
 
-You may use `sar` and `sal` to cast our 62-bit lisp numbers to and from int64s,
+You may use `sar` and `shl` to cast our 62-bit lisp numbers to and from int64s,
 and `cqo` for casts between int64 and int128. Of course, casting from a larger 
 integer set to a smaller one may fail (e.g. from `2**63` to a lisp number). You 
 are __not__ required to handle these cases in this assignment.
 
 
-Here is a summary of `cqo`, `sal` and `sar`
+Here is a summary of `cqo`, `shl` and `sar`
 (Source: https://www.felixcloutier.com/x86/index.html):
 
 - __`CQO`__: an instruction. `RDX:RAX` := sign-extend of `RAX`
-- __`SAL r/m64, imm8`__: multiply `r/m64` by `2`, `imm8` times
+- __`SHL r/m64, imm8`__: multiply `r/m64` by `2`, `imm8` times
 - __`SAR r/m64, imm8`__: signed divide `r/m64` by `2`, `imm8` times
 
 
