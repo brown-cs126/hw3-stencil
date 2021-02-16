@@ -23,7 +23,8 @@ let asm_to_file instrs asm_file =
   let file =
     Unix.openfile asm_file [Unix.O_WRONLY; Unix.O_CREAT; Unix.O_TRUNC] 0o666
   in
-  Unix.single_write_substring file text 0 (String.length text) |> ignore
+  Unix.single_write_substring file text 0 (String.length text)
+  |> fun _ -> Unix.close file
 
 let assemble asm_file object_file =
   let format = if macos () then "macho64" else "elf64" in
@@ -34,7 +35,7 @@ let copy_runtime runtime_file runtime_text =
     Unix.openfile runtime_file [Unix.O_WRONLY; Unix.O_CREAT; Unix.O_TRUNC] 0o666
   in
   Unix.single_write_substring file runtime_text 0 (String.length runtime_text)
-  |> ignore
+  |> fun _ -> Unix.close file
 
 let link object_file runtime_file binary_file =
   let disable_pie = if macos () then "-Wl,-no_pie" else "-no-pie" in
