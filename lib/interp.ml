@@ -74,7 +74,7 @@ let rec interp_expr (env : environment) : s_exp -> value = function
       let env = env |> Symtab.add var (interp_expr env exp) in
       interp_expr env body
   | Lst [Sym "if"; test_exp; then_exp; else_exp] ->
-      if interp_expr env test_exp != Bool false then interp_expr env then_exp
+      if interp_expr env test_exp <> Bool false then interp_expr env then_exp
       else interp_expr env else_exp
   | Lst [Sym f; arg] as e -> (
     match interp_unary_primitive f (interp_expr env arg) with
